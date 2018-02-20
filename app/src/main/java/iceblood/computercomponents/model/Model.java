@@ -4,11 +4,12 @@ import java.util.List;
 
 import iceblood.computercomponents.model.objects.SimpleProcessor;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by Titan'ik on 12.02.2018.
  */
 
 public interface Model {
-    Observable<List<SimpleProcessor>> getTwenty(int id);
+    Single<List<SimpleProcessor>> getTwenty(int id);
 }

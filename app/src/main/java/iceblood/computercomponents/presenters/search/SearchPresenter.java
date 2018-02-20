@@ -7,8 +7,8 @@ import iceblood.computercomponents.model.SimpleModel;
 import iceblood.computercomponents.model.objects.SimpleProcessor;
 import iceblood.computercomponents.presenters.base.BasePresenter;
 import iceblood.computercomponents.view.search.SearchView;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableSingleObserver;
 
 /**
  * Created by Titan'ik on 09.02.2018.
@@ -20,7 +20,7 @@ public class SearchPresenter extends BasePresenter<SearchView>implements SearchM
 
     private List<SimpleProcessor> simpleProcessorsP;
     private SimpleModel simpleModel;
-    private int number = 1;
+    private int number = 0;
 
     public SearchPresenter(){
         simpleProcessorsP = new ArrayList<>();
@@ -41,66 +41,30 @@ public class SearchPresenter extends BasePresenter<SearchView>implements SearchM
     public void loadData(){
         getMvpView().setVisibleProgressBar(true);
 
-        simpleModel.getTwenty(number).subscribe(new Observer<List<SimpleProcessor>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+        compositeDisposable.add(simpleModel.getTwenty(number)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<List<SimpleProcessor>>() {
+                    @Override
+                    public void onSuccess(List<SimpleProcessor> simpleProcessors) {
+                        simpleProcessorsP.addAll(simpleProcessors);
+                        if(isViewAttached()) {
+                            getMvpView().showRecyclerViewData();
+                            getMvpView().setVisibleProgressBar(false);
+                        }
+                    }
 
-            }
-
-            @Override
-            public void onNext(List<SimpleProcessor> simpleProcessors) {
-                simpleProcessorsP.addAll(simpleProcessors);
-                if(isViewAttached()) {
-                    getMvpView().showRecyclerViewData();
-                    getMvpView().setVisibleProgressBar(false);
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                if(isViewAttached()) {
-                    getMvpView().showError();
-                    getMvpView().setVisibleProgressBar(false);
-                }
-            }
-
-            @Override
-            public void onComplete() {
-                //simpleProcessorsP.add(new SimpleProcessor(10, "Complited", "", 8, 3));
-
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        if(isViewAttached()) {
+                            getMvpView().showError();
+                            getMvpView().setVisibleProgressBar(false);
+                        }
+                    }
+                }));
         number++;
     }
     public void addData(){
-        //simpleProcessors.add(new SimpleProcessor(10,"lol","azaz",8,3));
-
-
-        /*SM.GetSimpleProcessor().subscribe(new Observer<SimpleProcessor>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(SimpleProcessor simpleProcessor) {
-                simpleProcessors.add(simpleProcessor);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });*/
-        //SM.GetSimpleProcessor().subscribe(simpleProcessor->simpleProcessors.add(simpleProcessor));
-
-
+        //
     }
     @Override
     public List<SimpleProcessor> getSimpleProcessors() {

@@ -1,6 +1,7 @@
 package iceblood.computercomponents.presenters.base;
 
 import iceblood.computercomponents.view.base.BaseView;
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by Titan'ik on 09.02.2018.
@@ -9,6 +10,7 @@ import iceblood.computercomponents.view.base.BaseView;
 public abstract class BasePresenter<T extends BaseView> implements Presenter<T> {
 
     private T mMvpView;
+    protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     public void attachView(T mvpView) {
@@ -21,6 +23,7 @@ public abstract class BasePresenter<T extends BaseView> implements Presenter<T> 
     @Override
     public void detachView() {
         mMvpView = null;
+        compositeDisposable.clear();
     }
 
     public boolean isViewAttached() {

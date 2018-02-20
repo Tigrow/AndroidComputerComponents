@@ -6,6 +6,7 @@ import iceblood.computercomponents.model.api.ApiInterface;
 import iceblood.computercomponents.model.api.ApiModule;
 import iceblood.computercomponents.model.objects.SimpleProcessor;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -23,10 +24,8 @@ public class SimpleModel implements Model{
     }
 
     @Override
-    public Observable<List<SimpleProcessor>> getTwenty(int id) {
+    public Single<List<SimpleProcessor>> getTwenty(int id) {
         return  apiInterface.getTwenty(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-           //     .flatMap(simpleProcessors -> Observable.fromArray(simpleProcessors));
+                .subscribeOn(Schedulers.io());
     }
 }
