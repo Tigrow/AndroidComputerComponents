@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-import iceblood.computercomponents.PresenterManager;
 import iceblood.computercomponents.R;
 import iceblood.computercomponents.presenters.main.MainPresenter;
 import iceblood.computercomponents.view.search.SearchActivity;

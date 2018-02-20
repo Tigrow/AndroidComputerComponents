@@ -7,17 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import iceblood.computercomponents.PresenterManager;
+import iceblood.computercomponents.presenters.PresenterManager;
 import iceblood.computercomponents.R;
-import iceblood.computercomponents.model.objects.SimpleProcessor;
-import iceblood.computercomponents.presenters.search.SearchMvpPresenter;
 import iceblood.computercomponents.presenters.search.SearchPresenter;
 
 public class SearchActivity extends AppCompatActivity implements SearchView {

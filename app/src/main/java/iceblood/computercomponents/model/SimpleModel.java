@@ -19,10 +19,6 @@ public class SimpleModel implements Model{
 
     ApiInterface apiInterface = ApiModule.getApiInterface();
 
-    public Observable<SimpleProcessor> GetSimpleProcessor(){
-        return Observable.just(new SimpleProcessor(1,"lol,","[f[",5,8));
-    }
-
     @Override
     public Single<List<SimpleProcessor>> getTwenty(int id) {
         return  apiInterface.getTwenty(id)
