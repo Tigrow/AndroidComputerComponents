@@ -3,6 +3,8 @@ package iceblood.computercomponents.presenters.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import iceblood.computercomponents.model.Constants;
+import iceblood.computercomponents.model.Model;
 import iceblood.computercomponents.model.SimpleModel;
 import iceblood.computercomponents.model.objects.SimpleProcessor;
 import iceblood.computercomponents.presenters.base.BasePresenter;
@@ -16,10 +18,10 @@ import io.reactivex.observers.DisposableSingleObserver;
 
 public class SearchPresenter extends BasePresenter<SearchView>implements SearchMvpPresenter{
 
-
+    private int productID = Constants.REQUEST_INTEL;
 
     private List<SimpleProcessor> simpleProcessorsP;
-    private SimpleModel simpleModel;
+    private Model simpleModel;
     private int number = 0;
 
     public SearchPresenter(){
@@ -41,7 +43,7 @@ public class SearchPresenter extends BasePresenter<SearchView>implements SearchM
     public void loadData(){
         getMvpView().setVisibleProgressBar(true);
 
-        compositeDisposable.add(simpleModel.getTwenty(number)
+        compositeDisposable.add(simpleModel.getTwenty(number,productID)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<List<SimpleProcessor>>() {
                     @Override
@@ -66,8 +68,20 @@ public class SearchPresenter extends BasePresenter<SearchView>implements SearchM
     public void addData(){
         //
     }
+    public void LikeData(int position,boolean cheked)
+    {
+        if(cheked)
+        simpleModel.setLikedData(simpleProcessorsP.get(position));
+        else
+            simpleModel.setUnLikedData(simpleProcessorsP.get(position));
+    }
+
     @Override
     public List<SimpleProcessor> getSimpleProcessors() {
         return simpleProcessorsP;
+    }
+
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 }

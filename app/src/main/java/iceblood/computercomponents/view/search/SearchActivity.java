@@ -1,7 +1,7 @@
 package iceblood.computercomponents.view.search;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import iceblood.computercomponents.model.Constants;
 import iceblood.computercomponents.presenters.PresenterManager;
 import iceblood.computercomponents.R;
 import iceblood.computercomponents.presenters.search.SearchPresenter;
@@ -18,14 +19,12 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
 
     private SearchPresenter searchPresenter;
 
-    //private List<SimpleProcessor> mSimpleProcessors;
-
     private View searchView;
     private ProgressBar progressBar;
 
     private RecyclerView recyclerView;
-    private LinearLayoutManager mLayoutManager;
-    private SearchAdapter mSearchAdapter;
+    private LinearLayoutManager layoutManager;
+    private SearchAdapter searchAdapter;
 
     private int previousTotal = 0;
     private boolean loading = true;
@@ -42,6 +41,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
             searchPresenter = PresenterManager.getInstance().restorePresenter(savedInstanceState);
         }
 
+        Intent intent = getIntent();
+        searchPresenter.setProductID(intent.getIntExtra(Constants.REQUEST_NAME,
+                Constants.REQUEST_INTEL));
+
         setContentView(R.layout.activity_search);
         searchView = (View) findViewById(R.id.activity_search);
 
@@ -51,10 +54,24 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         recyclerView = (RecyclerView) findViewById(R.id.search_recycler_view);
         progressBar = (ProgressBar) findViewById(R.id.search_progressBar);
 
-        mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        mSearchAdapter = new SearchAdapter(this,searchPresenter.getSimpleProcessors());
-        recyclerView.setAdapter(mSearchAdapter);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        searchAdapter = new SearchAdapter(searchPresenter.getSimpleProcessors());
+        recyclerView.setAdapter(searchAdapter);
+        loadListeners();
+    }
+    private void loadListeners() {
+        searchAdapter.setListener(new Listener() {
+            @Override
+            public void OnClickView(int id) {
+                //Здесь будет переход по ID
+            }
+
+            @Override
+            public void OnClickChechBox(int id, boolean cheked) {
+                searchPresenter.LikeData(id,cheked);
+            }
+        });
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -62,8 +79,8 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 visibleItemCount = recyclerView.getChildCount();
-                totalItemCount = mLayoutManager.getItemCount();
-                firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
+                totalItemCount = layoutManager.getItemCount();
+                firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
                 if(loading){
                     if(totalItemCount> previousTotal){
                         loading = false;
@@ -76,37 +93,31 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
                 }
             }
         });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-                searchPresenter.addData();
-            }
-        });
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         PresenterManager.getInstance().savePresenter(searchPresenter, outState);
     }
+
     @Override
     protected void onPause() {
         super.onPause();
 
         searchPresenter.detachView();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         searchPresenter.attachView(this);
      }
 
+    @Override
     public void showRecyclerViewData(){
-        mSearchAdapter.notifyDataSetChanged();
+        searchAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -118,7 +129,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
 
     @Override
     public void showEmpty() {
-//
+        //
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import iceblood.computercomponents.R;
+import iceblood.computercomponents.model.Constants;
 import iceblood.computercomponents.presenters.main.MainPresenter;
 import iceblood.computercomponents.view.search.SearchActivity;
 
@@ -38,20 +39,12 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.Click();
-            }
-        });
+        fab.setOnClickListener(view -> presenter.Click());
         b = (Button) findViewById(R.id.button2);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
+        b.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            intent.putExtra(Constants.REQUEST_NAME,Constants.REQUEST_INTEL);
+            startActivity(intent);
         });
     }
     @Override

@@ -5,7 +5,7 @@ package iceblood.computercomponents.model.objects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 /**
- * Created by Titan'ik on 08.02.2018.
+ * POJO
  */
 
 public class SimpleProcessor {
@@ -16,22 +16,13 @@ public class SimpleProcessor {
         @SerializedName("name")
         @Expose
         private String name;
-        @SerializedName("codename")
-        @Expose
-        private String codename;
-        @SerializedName("threads")
-        @Expose
-        private Integer threads;
-        @SerializedName("cores")
-        @Expose
-        private Integer cores;
 
-        public SimpleProcessor(int id,String name,String codename,int threads,int cores){
+        private boolean isLiked;
+
+        public SimpleProcessor(int id,String name,boolean isLiked){
             this.id = id;
             this.name = name;
-            this.codename = codename;
-            this.threads = threads;
-            this.cores = cores;
+            this.isLiked = isLiked;
         }
 
         public Integer getId() {
@@ -50,28 +41,12 @@ public class SimpleProcessor {
             this.name = name;
         }
 
-        public String getCodename() {
-            return codename;
+        public boolean isLiked() {
+        return isLiked;
         }
 
-        public void setCodename(String codename) {
-            this.codename = codename;
-        }
-
-        public Integer getThreads() {
-            return threads;
-        }
-
-        public void setThreads(Integer threads) {
-            this.threads = threads;
-        }
-
-        public Integer getCores() {
-            return cores;
-        }
-
-        public void setCores(Integer cores) {
-            this.cores = cores;
+        public void setLiked(boolean like) {
+        isLiked = like;
         }
 
 }
