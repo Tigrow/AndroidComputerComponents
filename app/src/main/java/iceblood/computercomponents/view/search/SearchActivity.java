@@ -13,11 +13,11 @@ import android.widget.ProgressBar;
 import iceblood.computercomponents.model.Constants;
 import iceblood.computercomponents.presenters.PresenterManager;
 import iceblood.computercomponents.R;
+import iceblood.computercomponents.presenters.search.SearchMvpPresenter;
 import iceblood.computercomponents.presenters.search.SearchPresenter;
+import iceblood.computercomponents.view.base.BaseActivity;
 
-public class SearchActivity extends AppCompatActivity implements SearchView {
-
-    private SearchPresenter searchPresenter;
+public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchView {
 
     private View searchView;
     private ProgressBar progressBar;
@@ -34,15 +34,13 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (savedInstanceState == null) {
-            searchPresenter = new SearchPresenter();
-        } else {
-            searchPresenter = PresenterManager.getInstance().restorePresenter(savedInstanceState);
+            presenter = new SearchPresenter();
+        }else{
+            presenter = PresenterManager.getInstance().restorePresenter(savedInstanceState);
         }
-
         Intent intent = getIntent();
-        searchPresenter.setProductID(intent.getIntExtra(Constants.REQUEST_NAME,
+        presenter.setProductID(intent.getIntExtra(Constants.REQUEST_NAME,
                 Constants.REQUEST_INTEL));
 
         setContentView(R.layout.activity_search);
@@ -56,7 +54,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        searchAdapter = new SearchAdapter(searchPresenter.getSimpleProcessors());
+        searchAdapter = new SearchAdapter(presenter.getSimpleProcessors());
         recyclerView.setAdapter(searchAdapter);
         loadListeners();
     }
@@ -69,7 +67,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
 
             @Override
             public void OnClickChechBox(int id, boolean cheked) {
-                searchPresenter.LikeData(id,cheked);
+                presenter.LikeData(id,cheked);
             }
         });
 
@@ -88,32 +86,13 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
                     }
                 }
                 if(!loading && (totalItemCount - visibleItemCount)<=(firstVisibleItem + visibleItemCount)){
-                    searchPresenter.loadData();
+                    presenter.loadData();
                     loading = true;
                 }
             }
         });
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        PresenterManager.getInstance().savePresenter(searchPresenter, outState);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        searchPresenter.detachView();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        searchPresenter.attachView(this);
-     }
 
     @Override
     public void showRecyclerViewData(){

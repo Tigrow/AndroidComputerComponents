@@ -1,5 +1,7 @@
 package iceblood.computercomponents.presenters.base;
 
+import android.util.Log;
+
 import iceblood.computercomponents.view.base.BaseView;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -16,6 +18,7 @@ public abstract class BasePresenter<T extends BaseView> implements Presenter<T> 
     public void attachView(T mvpView) {
         mMvpView = mvpView;
         updateView();
+        Log.d("LOL", "attachView");
     }
 
     public abstract void updateView();
@@ -24,6 +27,7 @@ public abstract class BasePresenter<T extends BaseView> implements Presenter<T> 
     public void detachView() {
         mMvpView = null;
         compositeDisposable.clear();
+        Log.d("LOL", "detachView");
     }
 
     public boolean isViewAttached() {

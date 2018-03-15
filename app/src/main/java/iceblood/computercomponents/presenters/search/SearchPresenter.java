@@ -1,5 +1,7 @@
 package iceblood.computercomponents.presenters.search;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class SearchPresenter extends BasePresenter<SearchView>implements SearchM
     private int number = 0;
 
     public SearchPresenter(){
+        Log.d("lol", "SearchPresenter: Created");
         simpleProcessorsP = new ArrayList<>();
         simpleModel = new SimpleModel();
 

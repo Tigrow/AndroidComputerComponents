@@ -11,7 +11,8 @@ import iceblood.computercomponents.view.search.SearchView;
  */
 
 public interface SearchMvpPresenter extends Presenter<SearchView> {
-    public void addData();
-    public void loadData();
-    public List<SimpleProcessor> getSimpleProcessors();
+    void loadData();
+    List<SimpleProcessor> getSimpleProcessors();
+    void setProductID(int productID);
+    void LikeData(int position,boolean cheked);
 }
