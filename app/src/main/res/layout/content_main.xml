@@ -7,16 +7,9 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="iceblood.computercomponents.view.main.MainActivity"
     tools:showIn="@layout/activity_main">
-
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/main_fragment_conteiner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-    </LinearLayout>
+        android:layout_height="match_parent">
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>
