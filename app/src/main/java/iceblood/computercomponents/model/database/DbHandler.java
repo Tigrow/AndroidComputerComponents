@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import iceblood.computercomponents.model.objects.Assembly;
 import iceblood.computercomponents.model.objects.SimpleProcessor;
 
 import static iceblood.computercomponents.model.database.Contract.*;
@@ -32,6 +34,19 @@ public class DbHandler extends SQLiteOpenHelper {
                         + SimpleEntity.KEY_DESCRIPTION + " TEXT, "
                         + SimpleEntity.KEY_PRIORITY + " INTEGER)"
         );
+        db.execSQL(
+                "CREATE TABLE " + AssemblyEntity.TABLE_NAME + "("
+                        + AssemblyEntity._ID + " INTEGER PRIMARY KEY, "
+                        + AssemblyEntity.CPU_ID + " INTEGER, "
+                        + AssemblyEntity.MOTHERBOARD_ID + " INTEGER, "
+                        + AssemblyEntity.GPU_ID + " INTEGER, "
+                        + AssemblyEntity.GPU2_ID + " INTEGER, "
+                        + AssemblyEntity.GPU3_ID + " INTEGER, "
+                        + AssemblyEntity.GPU4_ID + " INTEGER, "
+                        + AssemblyEntity.GPU5_ID + " INTEGER, "
+                        + AssemblyEntity.GPU6_ID + " INTEGER, "
+                        + AssemblyEntity.RAM_SIZE + " INTEGER)"
+        );
     }
 
     @Override
@@ -48,31 +63,10 @@ public class DbHandler extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(SimpleEntity._ID, simpleData.getId());
         cv.put(SimpleEntity.KEY_NAME, simpleData.getName());
-        //cv.put(SimpleEntity.KEY_DESCRIPTION, "");
-        //cv.put(SimpleEntity.KEY_PRIORITY, task.get_priority());
 
         db.insert(SimpleEntity.TABLE_NAME, null, cv);
         db.close();
     }
-
-    /*public List<Task> getAllTasks() {
-
-        List<Task> tasks = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TaskEntry.TABLE_TASKS, null);
-        while (cursor.moveToNext()) {
-            Task task = new Task();
-            task.set_id(cursor.getInt(0));
-            task.set_name(cursor.getString(1));
-            task.set_description(cursor.getString(2));
-            task.set_priority(cursor.getInt(3));
-
-            tasks.add(task);
-        }
-        cursor.close();
-        return tasks;
-    }*/
 
     public boolean isSimpleDataLiked(int ID) {
         boolean isEmpty;
@@ -83,6 +77,36 @@ public class DbHandler extends SQLiteOpenHelper {
         cursor.close();
 
         return isEmpty;
+    }
+
+    public int delete(int id) {
+
+        int number;
+        SQLiteDatabase db = getWritableDatabase();
+        number = db.delete(SimpleEntity.TABLE_NAME, SimpleEntity._ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
+
+        return number;
+    }
+
+    public List<Assembly> getAllTasks() {
+
+        List<Assembly> tasks = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + AssemblyEntity.TABLE_NAME, null);
+        while (cursor.moveToNext()) {
+            Assembly assembly = new Assembly();
+            /*assembly.setCpuID(cursor.getInt());
+            task.set_id(cursor.getInt(0));
+            task.set_name(cursor.getString(1));
+            task.set_description(cursor.getString(2));
+            task.set_priority(cursor.getInt(3));
+
+            tasks.add(task);*/
+        }
+        cursor.close();
+        return tasks;
     }
 
     public int getTasksCount() {
@@ -112,15 +136,6 @@ public class DbHandler extends SQLiteOpenHelper {
         return number;
     }*/
 
-    public int delete(int id) {
-
-        int number;
-        SQLiteDatabase db = getWritableDatabase();
-        number = db.delete(SimpleEntity.TABLE_NAME, SimpleEntity._ID + "=?", new String[]{String.valueOf(id)});
-        db.close();
-
-        return number;
-    }
 
     /*public void swap(Task firstMember, Task secondMember) {
 
