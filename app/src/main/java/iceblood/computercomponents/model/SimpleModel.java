@@ -41,18 +41,24 @@ public class SimpleModel implements Model {
 
     @Override
     public Completable setLikedData(SimpleProcessor simpleProcessor) {
-        if (simpleProcessor.isLiked())
-            return Completable.fromAction(() -> simpleProcessorDao.insert(simpleProcessor))
-                    .subscribeOn(Schedulers.io());
-        else
-            return Completable.fromAction(() -> simpleProcessorDao.delete(simpleProcessor))
-                    .subscribeOn(Schedulers.io());
+
+        return Completable.fromAction(() -> updateLikedData(simpleProcessor))
+                .subscribeOn(Schedulers.io());
+
     }
 
     private boolean isLiked(int id) {
-        if (simpleProcessorDao.getById(id)!=null)
-            return true;
+        SimpleProcessor simpleProcessor = simpleProcessorDao.getById(id);
+        if (simpleProcessor != null)
+            return simpleProcessor.isLiked();
         else
             return false;
+    }
+
+    private void updateLikedData(SimpleProcessor simpleProcessor) {
+        if (simpleProcessorDao.getById(simpleProcessor.getId()) != null)
+            simpleProcessorDao.update(simpleProcessor);
+        else
+            simpleProcessorDao.insert(simpleProcessor);
     }
 }

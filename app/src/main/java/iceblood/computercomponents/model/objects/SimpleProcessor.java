@@ -21,12 +21,12 @@ public class SimpleProcessor {
     @SerializedName("name")
     @Expose
     private String name;
-    @Ignore
     private boolean isLiked;
 
-    public SimpleProcessor(int id, String name) {
+    public SimpleProcessor(int id, String name,boolean isLiked) {
         this.id = id;
         this.name = name;
+        this.isLiked = isLiked;
     }
 
     public Integer getId() {

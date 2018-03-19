@@ -40,7 +40,7 @@ public class MainFragment extends BaseFragment<AssemblyPresenter> implements Ass
         Button button = view.findViewById(R.id.button_add_assembly);
         button.setOnClickListener(view1 -> {
             Intent intent = new Intent(getActivity(), SearchActivity.class);
-            intent.putExtra(Constants.REQUEST_NAME,Constants.REQUEST_INTEL);
+            intent.putExtra(Constants.REQUEST_NAME, Constants.REQUEST_INTEL);
             startActivity(intent);
         });
 
