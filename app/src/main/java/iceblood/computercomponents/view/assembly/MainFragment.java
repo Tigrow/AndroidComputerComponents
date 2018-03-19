@@ -13,20 +13,18 @@ import iceblood.computercomponents.R;
 import iceblood.computercomponents.model.Constants;
 import iceblood.computercomponents.presenters.PresenterManager;
 import iceblood.computercomponents.presenters.assembly.AssemblyPresenter;
+import iceblood.computercomponents.view.base.BaseFragment;
 import iceblood.computercomponents.view.search.SearchActivity;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment implements AssemblyView {
-
-    private AssemblyPresenter presenter;
+public class MainFragment extends BaseFragment<AssemblyPresenter> implements AssemblyView {
 
     public MainFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +37,7 @@ public class MainFragment extends Fragment implements AssemblyView {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        Button button = (Button) view.findViewById(R.id.button_add_assembly);
+        Button button = view.findViewById(R.id.button_add_assembly);
         button.setOnClickListener(view1 -> {
             Intent intent = new Intent(getActivity(), SearchActivity.class);
             intent.putExtra(Constants.REQUEST_NAME,Constants.REQUEST_INTEL);

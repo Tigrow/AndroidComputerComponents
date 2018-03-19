@@ -18,7 +18,7 @@ import io.reactivex.observers.DisposableSingleObserver;
  * Created by Titan'ik on 09.02.2018.
  */
 
-public class SearchPresenter extends BasePresenter<SearchView>implements SearchMvpPresenter{
+public class SearchPresenter extends BasePresenter<SearchView> implements SearchMvpPresenter {
 
     private int productID = Constants.REQUEST_INTEL;
 
@@ -26,7 +26,7 @@ public class SearchPresenter extends BasePresenter<SearchView>implements SearchM
     private Model simpleModel;
     private int number = 0;
 
-    public SearchPresenter(){
+    public SearchPresenter() {
         Log.d("lol", "SearchPresenter: Created");
         simpleProcessorsP = new ArrayList<>();
         simpleModel = new SimpleModel();
@@ -35,24 +35,23 @@ public class SearchPresenter extends BasePresenter<SearchView>implements SearchM
 
     @Override
     public void updateView() {
-        if(simpleProcessorsP.isEmpty()){
+        if (simpleProcessorsP.isEmpty()) {
             loadData();
-        }else
-        {
+        } else {
             getMvpView().showRecyclerViewData();
         }
     }
 
-    public void loadData(){
+    public void loadData() {
         getMvpView().setVisibleProgressBar(true);
 
-        compositeDisposable.add(simpleModel.getTwenty(number,productID)
+        compositeDisposable.add(simpleModel.getTwenty(number, productID)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<List<SimpleProcessor>>() {
                     @Override
                     public void onSuccess(List<SimpleProcessor> simpleProcessors) {
                         simpleProcessorsP.addAll(simpleProcessors);
-                        if(isViewAttached()) {
+                        if (isViewAttached()) {
                             getMvpView().showRecyclerViewData();
                             getMvpView().setVisibleProgressBar(false);
                         }
@@ -60,7 +59,7 @@ public class SearchPresenter extends BasePresenter<SearchView>implements SearchM
 
                     @Override
                     public void onError(Throwable e) {
-                        if(isViewAttached()) {
+                        if (isViewAttached()) {
                             getMvpView().showError();
                             getMvpView().setVisibleProgressBar(false);
                         }
@@ -68,15 +67,14 @@ public class SearchPresenter extends BasePresenter<SearchView>implements SearchM
                 }));
         number++;
     }
-    public void addData(){
+
+    public void addData() {
         //
     }
-    public void LikeData(int position,boolean cheked)
-    {
-        if(cheked)
-        simpleModel.setLikedData(simpleProcessorsP.get(position));
-        else
-            simpleModel.setUnLikedData(simpleProcessorsP.get(position));
+
+    public void LikeData(int position, boolean cheked) {
+        compositeDisposable.add(simpleModel.setLikedData(simpleProcessorsP.get(position))
+                .subscribe());
     }
 
     @Override

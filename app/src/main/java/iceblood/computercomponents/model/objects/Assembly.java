@@ -1,27 +1,40 @@
 package iceblood.computercomponents.model.objects;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.Ignore;
+
 /**
  * POJO
  */
-
+@Entity
 public class Assembly {
+    @PrimaryKey
     private int id;
     private String name;
     private int cpuID;
+    @Ignore
     private String cpuName;
     private int motherboardID;
+    @Ignore
     private String motherboardName;
     private int gpuID;
+    @Ignore
     private String gpuName;
     private int gpu2ID;
+    @Ignore
     private String gpu2Name;
     private int gpu3ID;
+    @Ignore
     private String gpu3Name;
     private int gpu4ID;
+    @Ignore
     private String gpu4Name;
     private int gpu5ID;
+    @Ignore
     private String gpu5Name;
     private int gpu6ID;
+    @Ignore
     private String gpu6Name;
     private int gpuColumn;
     private int ramSize;

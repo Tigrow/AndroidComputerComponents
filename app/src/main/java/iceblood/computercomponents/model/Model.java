@@ -3,6 +3,7 @@ package iceblood.computercomponents.model;
 import java.util.List;
 
 import iceblood.computercomponents.model.objects.SimpleProcessor;
+import io.reactivex.Completable;
 import io.reactivex.Single;
 
 /**
@@ -10,8 +11,7 @@ import io.reactivex.Single;
  */
 
 public interface Model {
-    Single<List<SimpleProcessor>> getTwenty(int id,int productID);
-    Single<List<SimpleProcessor>> getTwenty(int id,int productID,String name);
-    void setLikedData(SimpleProcessor simpleProcessor);
-    void setUnLikedData(SimpleProcessor simpleProcessor);
+    Single<List<SimpleProcessor>> getTwenty(int number,int product);
+    Single<List<SimpleProcessor>> getTwenty(int number,int product,String name);
+    Completable setLikedData(SimpleProcessor simpleProcessor);
 }
