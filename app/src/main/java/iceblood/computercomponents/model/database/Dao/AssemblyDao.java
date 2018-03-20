@@ -5,6 +5,7 @@ import android.arch.persistence.room.*;
 import java.util.List;
 
 import iceblood.computercomponents.model.objects.Assembly;
+import io.reactivex.Single;
 
 /**
  * Dao Table Assembly
@@ -12,7 +13,7 @@ import iceblood.computercomponents.model.objects.Assembly;
 @Dao
 public interface AssemblyDao {
     @Query("SELECT * FROM assembly")
-    List<Assembly> getAll();
+    Single<List<Assembly>> getAll();
 
     @Query("SELECT * FROM assembly WHERE id = :id")
     Assembly getById(long id);

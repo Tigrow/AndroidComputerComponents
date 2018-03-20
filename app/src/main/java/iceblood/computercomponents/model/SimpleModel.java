@@ -1,5 +1,7 @@
 package iceblood.computercomponents.model;
 
+import android.util.Log;
+
 import java.util.List;
 
 import iceblood.computercomponents.ApplicationMVP;
@@ -10,6 +12,7 @@ import iceblood.computercomponents.model.objects.SimpleProcessor;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.observers.DisposableMaybeObserver;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -26,10 +29,13 @@ public class SimpleModel implements Model {
     public Single<List<SimpleProcessor>> getTwenty(int number, int product) {
         return apiInterface.getTwenty(number)
                 .flatMapObservable(simpleProcessor -> Observable.fromIterable(simpleProcessor))
-                .doOnNext(simpleProcessor ->
-                        simpleProcessor.setLiked(isLiked(simpleProcessor.getId())))
+                .doOnNext(simpleProcessor -> simpleProcessorDao.getById(simpleProcessor.getId())
+                        .doOnSuccess(simpleProcessor1 ->
+                                simpleProcessor.setLiked(simpleProcessor1.isLiked()))
+                        .doOnComplete(() ->
+                                simpleProcessor.setLiked(false))
+                        .subscribe())
                 .toList()
-                .onErrorResumeNext(simpleProcessorDao.getAll())
                 .subscribeOn(Schedulers.io());
     }
 
@@ -41,24 +47,11 @@ public class SimpleModel implements Model {
 
     @Override
     public Completable setLikedData(SimpleProcessor simpleProcessor) {
-
-        return Completable.fromAction(() -> updateLikedData(simpleProcessor))
+        return Completable.fromAction(() ->
+                simpleProcessorDao.getById(simpleProcessor.getId())
+                        .doOnSuccess(simpleProcessor1 -> simpleProcessorDao.update(simpleProcessor))
+                        .doOnComplete(() -> simpleProcessorDao.insert(simpleProcessor))
+                        .subscribe())
                 .subscribeOn(Schedulers.io());
-
-    }
-
-    private boolean isLiked(int id) {
-        SimpleProcessor simpleProcessor = simpleProcessorDao.getById(id);
-        if (simpleProcessor != null)
-            return simpleProcessor.isLiked();
-        else
-            return false;
-    }
-
-    private void updateLikedData(SimpleProcessor simpleProcessor) {
-        if (simpleProcessorDao.getById(simpleProcessor.getId()) != null)
-            simpleProcessorDao.update(simpleProcessor);
-        else
-            simpleProcessorDao.insert(simpleProcessor);
     }
 }

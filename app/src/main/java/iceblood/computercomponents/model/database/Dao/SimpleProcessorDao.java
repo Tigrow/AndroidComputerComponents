@@ -9,6 +9,7 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 import iceblood.computercomponents.model.objects.SimpleProcessor;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**
@@ -20,7 +21,7 @@ public interface SimpleProcessorDao {
     Single<List<SimpleProcessor>> getAll();
 
     @Query("SELECT * FROM simpleprocessor WHERE id = :id")
-    SimpleProcessor getById(long id);
+    Maybe<SimpleProcessor> getById(long id);
 
     @Insert
     void insert(SimpleProcessor simpleProcessor);
