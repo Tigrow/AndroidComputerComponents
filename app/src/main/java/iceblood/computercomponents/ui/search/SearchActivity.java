@@ -1,9 +1,8 @@
-package iceblood.computercomponents.view.search;
+package iceblood.computercomponents.ui.search;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,11 +10,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import iceblood.computercomponents.model.Constants;
-import iceblood.computercomponents.presenters.PresenterManager;
+import iceblood.computercomponents.PresenterManager;
 import iceblood.computercomponents.R;
-import iceblood.computercomponents.presenters.search.SearchMvpPresenter;
-import iceblood.computercomponents.presenters.search.SearchPresenter;
-import iceblood.computercomponents.view.base.BaseActivity;
+import iceblood.computercomponents.ui.base.BaseActivity;
 
 public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchView {
 

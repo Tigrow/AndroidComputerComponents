@@ -1,17 +1,17 @@
-package iceblood.computercomponents.presenters;
+package iceblood.computercomponents;
 
 import android.os.Bundle;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
-import iceblood.computercomponents.presenters.base.BasePresenter;
+import iceblood.computercomponents.ui.base.BasePresenter;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
 /**
- * Created by Titan'ik on 09.02.2018.
+ * It is o_O
  */
 
 

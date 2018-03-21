@@ -1,4 +1,4 @@
-package iceblood.computercomponents.view.search;
+package iceblood.computercomponents.ui.search;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +19,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
     ViewHolder(View itemView) {
         super(itemView);
-        cardView = (CardView) itemView.findViewById(R.id.search_cardview);
-        name = (TextView) itemView.findViewById(R.id.card_name);
-        checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
+        cardView =  itemView.findViewById(R.id.search_cardview);
+        name =  itemView.findViewById(R.id.card_name);
+        checkBox =  itemView.findViewById(R.id.checkBox);
     }
 }

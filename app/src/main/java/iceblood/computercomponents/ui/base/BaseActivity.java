@@ -1,14 +1,12 @@
-package iceblood.computercomponents.view.base;
+package iceblood.computercomponents.ui.base;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import iceblood.computercomponents.presenters.PresenterManager;
-import iceblood.computercomponents.presenters.base.BasePresenter;
-import iceblood.computercomponents.presenters.base.Presenter;
+import iceblood.computercomponents.PresenterManager;
 
 /**
- * Created by Titan'ik on 11.02.2018.
+ * Base Activity for use presenter
  */
 
 public class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView{

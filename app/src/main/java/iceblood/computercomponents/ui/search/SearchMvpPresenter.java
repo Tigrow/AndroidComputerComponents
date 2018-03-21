@@ -1,13 +1,12 @@
-package iceblood.computercomponents.presenters.search;
+package iceblood.computercomponents.ui.search;
 
 import java.util.List;
 
 import iceblood.computercomponents.model.objects.SimpleProcessor;
-import iceblood.computercomponents.presenters.base.Presenter;
-import iceblood.computercomponents.view.search.SearchView;
+import iceblood.computercomponents.ui.base.Presenter;
 
 /**
- * Created by Titan'ik on 11.02.2018.
+ * interface for SearchPresenter
  */
 
 public interface SearchMvpPresenter extends Presenter<SearchView> {

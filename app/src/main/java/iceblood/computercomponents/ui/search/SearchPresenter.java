@@ -1,4 +1,4 @@
-package iceblood.computercomponents.presenters.search;
+package iceblood.computercomponents.ui.search;
 
 import android.util.Log;
 
@@ -9,8 +9,7 @@ import iceblood.computercomponents.model.Constants;
 import iceblood.computercomponents.model.Model;
 import iceblood.computercomponents.model.SimpleModel;
 import iceblood.computercomponents.model.objects.SimpleProcessor;
-import iceblood.computercomponents.presenters.base.BasePresenter;
-import iceblood.computercomponents.view.search.SearchView;
+import iceblood.computercomponents.ui.base.BasePresenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 

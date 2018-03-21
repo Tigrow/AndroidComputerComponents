@@ -1,4 +1,4 @@
-package iceblood.computercomponents.view.search;
+package iceblood.computercomponents.ui.search;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

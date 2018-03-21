@@ -1,4 +1,4 @@
-package iceblood.computercomponents.view.search;
+package iceblood.computercomponents.ui.search;
 
 /**
  * Listener for buttons on SearchAdapter

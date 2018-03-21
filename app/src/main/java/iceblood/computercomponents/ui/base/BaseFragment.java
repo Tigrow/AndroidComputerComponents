@@ -1,10 +1,9 @@
-package iceblood.computercomponents.view.base;
+package iceblood.computercomponents.ui.base;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import iceblood.computercomponents.presenters.PresenterManager;
-import iceblood.computercomponents.presenters.base.BasePresenter;
+import iceblood.computercomponents.PresenterManager;
 
 /**
  * It's Base Fragment

@@ -1,12 +1,11 @@
-package iceblood.computercomponents.presenters.base;
+package iceblood.computercomponents.ui.base;
 
 import android.util.Log;
 
-import iceblood.computercomponents.view.base.BaseView;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
- * Created by Titan'ik on 09.02.2018.
+ * It is base presenter
  */
 
 public abstract class BasePresenter<T extends BaseView> implements Presenter<T> {
@@ -43,7 +42,7 @@ public abstract class BasePresenter<T extends BaseView> implements Presenter<T> 
     }
 
     public static class MvpViewNotAttachedException extends RuntimeException {
-        public MvpViewNotAttachedException() {
+         MvpViewNotAttachedException() {
             super("Please call Presenter.attachView(BaseView) before" +
                     " requesting data to the Presenter");
         }

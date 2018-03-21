@@ -5,6 +5,7 @@ import android.arch.persistence.room.*;
 import java.util.List;
 
 import iceblood.computercomponents.model.objects.Assembly;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**
@@ -16,7 +17,7 @@ public interface AssemblyDao {
     Single<List<Assembly>> getAll();
 
     @Query("SELECT * FROM assembly WHERE id = :id")
-    Assembly getById(long id);
+    Maybe<Assembly> getById(long id);
 
     @Insert
     void insert(Assembly assembly);

@@ -1,9 +1,11 @@
-package iceblood.computercomponents.view.assembly;
+package iceblood.computercomponents.ui.assembly;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +13,20 @@ import android.widget.Button;
 
 import iceblood.computercomponents.R;
 import iceblood.computercomponents.model.Constants;
-import iceblood.computercomponents.presenters.PresenterManager;
-import iceblood.computercomponents.presenters.assembly.AssemblyPresenter;
-import iceblood.computercomponents.view.base.BaseFragment;
-import iceblood.computercomponents.view.search.SearchActivity;
+import iceblood.computercomponents.PresenterManager;
+import iceblood.computercomponents.ui.base.BaseFragment;
+import iceblood.computercomponents.ui.search.SearchActivity;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends BaseFragment<AssemblyPresenter> implements AssemblyView {
+
+    AssemblyAdapter assemblyAdapter;
+    RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
+    View view;
 
     public MainFragment() {
         // Required empty public constructor
@@ -35,7 +41,13 @@ public class MainFragment extends BaseFragment<AssemblyPresenter> implements Ass
             presenter = PresenterManager.getInstance().restorePresenter(savedInstanceState);
         }
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        recyclerView = view.findViewById(R.id.assembly_recycler_view);
+        assemblyAdapter = new AssemblyAdapter(presenter.getAssembies(), presenter.getListener());
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setAdapter(assemblyAdapter);
+        recyclerView.setLayoutManager(layoutManager);
 
         Button button = view.findViewById(R.id.button_add_assembly);
         button.setOnClickListener(view1 -> {
@@ -45,30 +57,5 @@ public class MainFragment extends BaseFragment<AssemblyPresenter> implements Ass
         });
 
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 }

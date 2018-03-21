@@ -9,7 +9,7 @@ import android.arch.persistence.room.Ignore;
  */
 @Entity
 public class Assembly {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
     private int cpuID;
