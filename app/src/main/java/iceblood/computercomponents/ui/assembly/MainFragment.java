@@ -23,10 +23,10 @@ import iceblood.computercomponents.ui.search.SearchActivity;
  */
 public class MainFragment extends BaseFragment<AssemblyPresenter> implements AssemblyView {
 
-    AssemblyAdapter assemblyAdapter;
-    RecyclerView recyclerView;
+    private AssemblyAdapter assemblyAdapter;
+    private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
-    View view;
+    private View view;
 
     public MainFragment() {
         // Required empty public constructor
