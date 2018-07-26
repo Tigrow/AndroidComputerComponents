@@ -14,7 +14,7 @@ import iceblood.computercomponents.model.objects.Assembly;
  * it is assemblies adapter
  */
 
-public class AssemblyAdapter extends RecyclerView.Adapter<AssemblyHolder> {
+class AssemblyAdapter extends RecyclerView.Adapter<AssemblyHolder> {
     private List<Assembly> assemblies;
     private AssemblyListener listener;
 

@@ -10,7 +10,7 @@ import iceblood.computercomponents.ui.base.BasePresenter;
  * Created by Titan'ik on 15.03.2018.
  */
 
-public class AssemblyPresenter extends BasePresenter<AssemblyView> implements AssemblyMvpPresenter{
+class AssemblyPresenter extends BasePresenter<AssemblyView> implements AssemblyMvpPresenter{
     private List<Assembly> assemblies;
     private AssemblyListener listener;
     AssemblyPresenter(){

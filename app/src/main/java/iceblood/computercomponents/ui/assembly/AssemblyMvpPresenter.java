@@ -9,7 +9,7 @@ import iceblood.computercomponents.ui.base.Presenter;
  *
  */
 
-public interface AssemblyMvpPresenter extends Presenter<AssemblyView> {
+interface AssemblyMvpPresenter extends Presenter<AssemblyView> {
     List<Assembly> getAssembies();
     AssemblyListener getListener();
 
